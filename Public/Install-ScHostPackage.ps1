@@ -91,6 +91,7 @@ function Install-ScHostPackage {
 		if ($destination) {
 			[System.IO.Compression.ZipFileExtensions]::ExtractToFile($entry, $destination, $true)
 		}
+		$destination = $null
 	}
 
 	$zip.Dispose()
