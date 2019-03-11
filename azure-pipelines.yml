@@ -5,13 +5,3 @@
 
 trigger:
 - master
-
-pool:
-  vmImage: 'windows-2019'
-
-steps:
-- task: kenakamu.PSGalleryPublisher.powershell-gallery-publish-task.PSGalleryPackager@0
-  displayName: 'PowerShell Gallery Packager '
-  inputs:
-    apiKey: oy2dymauazhiqgjta3dablsctlelikke7oagilf3axt5mu
-    path: '$(System.DefaultWorkingDirectory)/mashups'
