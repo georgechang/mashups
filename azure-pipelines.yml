@@ -1,0 +1,17 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-2019'
+
+steps:
+- task: kenakamu.PSGalleryPublisher.powershell-gallery-publish-task.PSGalleryPackager@0
+  displayName: 'PowerShell Gallery Packager '
+  inputs:
+    apiKey: oy2dymauazhiqgjta3dablsctlelikke7oagilf3axt5mu
+    path: '$(System.DefaultWorkingDirectory)/mashups'
