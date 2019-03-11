@@ -6,4 +6,4 @@
 trigger:
 - master
 
-stages:
+steps:
