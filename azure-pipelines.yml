@@ -6,4 +6,12 @@
 trigger:
 - master
 
+pool:
+  vmImage: 'windows-2019'
+
 steps:
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+    artifactName: 'drop' 
+    publishLocation: 'Container'
