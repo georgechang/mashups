@@ -1,0 +1,144 @@
+{
+	"databases": [
+		{
+			"name": "MarketingAutomation",
+			"dacpac": "Sitecore.Marketingautomation.dacpac",
+			"prescripts": [
+				{
+					"file": "compatibility_azure_automation.sql"
+				}
+			],
+			"postscripts": [
+				{
+					"file": "createuser_text_automation.sql",
+					"variables": {
+						"text": {
+							"PlaceHolderForUser": "$automationUserName",
+							"PlaceHolderForPassword": "$automationPassword"
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Messaging",
+			"dacpac": "Sitecore.Messaging.dacpac",
+			"prescripts": [
+				{
+					"file": "compatibility_azure_messaging.sql"
+				}
+			],
+			"postscripts": [
+				{
+					"file": "createuser_text_messaging.sql",
+					"variables": {
+						"text": {
+							"PlaceHolderForUser": "$messagingUserName",
+							"PlaceHolderForPassword": "$messagingPassword"
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "ProcessingEngineStorage",
+			"dacpac": "Sitecore.Processing.Engine.Storage.dacpac",
+			"prescripts": [
+				{
+					"file": "compatibility_azure_processingenginestorage.sql"
+				}
+			],
+			"postscripts": [
+				{
+					"file": "createuser_text_processingenginestorage.sql",
+					"variables": {
+						"text": {
+							"PlaceHolderForUser": "$processingEngineUserName",
+							"PlaceHolderForPassword": "$processingEnginePassword"
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "ProcessingEngineTasks",
+			"dacpac": "Sitecore.Processing.Engine.Tasks.dacpac",
+			"prescripts": [
+				{
+					"file": "compatibility_azure_processingenginetasks.sql"
+				}
+			],
+			"postscripts": [
+				{
+					"file": "createuser_text_processingenginetasks.sql",
+					"variables": {
+						"text": {
+							"PlaceHolderForUser": "$processingEngineUserName",
+							"PlaceHolderForPassword": "$processingEnginePassword"
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Processing.Pools",
+			"dacpac": "Sitecore.Processing.pools.dacpac",
+			"prescripts": [
+				{
+					"file": "compatibility_azure_processing.sql"
+				}
+			],
+			"postscripts": [
+				{
+					"file": "createuser_text_processing.sql",
+					"variables": {
+						"text": {
+							"PlaceHolderForUser": "$poolsUserName",
+							"PlaceHolderForPassword": "$poolsPassword"
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "ReferenceData",
+			"dacpac": "Sitecore.Referencedata.dacpac",
+			"prescripts": [
+				{
+					"file": "compatibility_azure_referencedata.sql"
+				}
+			],
+			"postscripts": [
+				{
+					"file": "createuser_text_referencedata.sql",
+					"variables": {
+						"text": {
+							"PlaceHolderForUser": "$referenceDataUserName",
+							"PlaceHolderForPassword": "$referenceDataPassword"
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Reporting",
+			"dacpac": "Sitecore.Reporting.dacpac",
+			"prescripts": [
+				{
+					"file": "compatibility_azure_reporting.sql"
+				}
+			],
+			"postscripts": [
+				{
+					"file": "createuser_text_reporting.sql",
+					"variables": {
+						"text": {
+							"PlaceHolderForUser": "$reportingUserName",
+							"PlaceHolderForPassword": "$reportingPassword"
+						}
+					}
+				}
+			]
+		}
+	]
+}

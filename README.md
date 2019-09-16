@@ -1,6 +1,24 @@
-# mashups - Many Assorted Sitecore Host Utilities in PowerShell
+# mashups - Many Assorted Sitecore Helper Utilities in PowerShell
 
-## Utilities
+## Sitecore Installation
+
+### `Publish-SitecoreDatabases`
+
+Publishes Sitecore databases from an extracted WDP based on a designated configuration. Configurations can be found the in the `configs` folder as well as examples on how to use it in the `examples` folder.
+
+#### Usage
+
+`Publish-SitecoreDatabases -Path .\xp0-server-xdb-configuration.json -ResourcesPath .\resources -DatabaseServer "database.server.com" -DatabasePrefix "sc_" -DatabaseUserName "admin" -DatabasePassword "password" -Variables $variables`
+
+### `Invoke-ShardDeploymentTool`
+
+Executes the xConnect collection deployment tool to create the shard map manager and a corresponding number of shards.
+
+#### Usage
+
+`Invoke-ShardDeploymentTool -Path .\collectiondeployment -DatabaseServer "database.server.com" -DatabasePrefix "sc_" -DatabaseUserName "admin" -DatabasePassword "password" -ShardCount 3`
+
+## Sitecore Host
 
 ### `Install-ScHostPackage`
 
