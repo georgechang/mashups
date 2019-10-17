@@ -100,14 +100,14 @@
 		},
 		{
 			"name": "Processing.Tasks",
-			"dacpac": "Sitecore.Processing.Tasks.dacpac",
+			"dacpac": "Sitecore.Processing.tasks.dacpac",
 			"postscripts": [
 				{
 					"file": "CreateUser.ProcessingTasks.sql",
 					"variables": {
 						"text": {
-							"PlaceHolderForUser": "$processingTasksUserName",
-							"PlaceHolderForPassword": "$processingTasksPassword",
+							"PlaceHolderForUser": "$tasksUserName",
+							"PlaceHolderForPassword": "$tasksPassword",
 							"PlaceholderForDB": "$($DatabasePrefix)Processing.Tasks"
 						}
 					}

@@ -1,17 +1,17 @@
 $dbPrefix = "sc_"
-$dbServer = "localhost"
+$dbServer = "host.docker.internal,11433"
 
-$username = "sitecore"
+$username = "sa"
 $password = "pass@word1"
 
 $variables = @{
-	coreUserName = "coreuser";
-	securityUserName = "securityuser";
-	masterUserName = "masteruser";
-	webUserName = "webuser";
+	coreUserName            = "coreuser";
+	securityUserName        = "securityuser";
+	masterUserName          = "masteruser";
+	webUserName             = "webuser";
 	experienceFormsUserName = "formsuser";
-	exmUserName = "exmmasteruser";
-	processingTasksUserName = "tasksuser";
+	exmUserName             = "exmmasteruser";
+	tasksUserName           = "tasksuser";
 }
 $variables.add("corePassword", $password)
 $variables.add("securityPassword", "$password")
@@ -19,7 +19,7 @@ $variables.add("masterPassword", $password)
 $variables.add("webPassword", $password)
 $variables.add("experienceFormsPassword", $password)
 $variables.add("exmPassword", $password)
-$variables.add("processingTasksPassword", $password)
+$variables.add("tasksPassword", $password)
 
 $variables.add("adminPassword", "b")
 
