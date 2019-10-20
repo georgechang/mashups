@@ -10,7 +10,7 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
-- powershell: Install-Module -Name PowerShellGet
-  displayName: Install PowerShellGet
-- powershell: Publish-Module -Name mashups -NuGetApiKey $(NuGetApiKey)
+#- powershell: Install-Module -Name PowerShellGet
+#  displayName: Install PowerShellGet
+- powershell: Push-Location $(Pipeline.Workspace); Publish-Module -Name mashups -NuGetApiKey $(NuGetApiKey)
   displayName: Publish Module
