@@ -1,5 +1,7 @@
 # mashups - Many Assorted Sitecore Helper Utilities in PowerShell
 
+[![Build Status](https://dev.azure.com/georgechang/mashups/_apis/build/status/mashups?branchName=master)](https://dev.azure.com/georgechang/mashups/_build/latest?definitionId=4&branchName=master)
+
 ## Sitecore Installation
 
 ### `Publish-SitecoreDatabases`
@@ -17,6 +19,14 @@ Executes the xConnect collection deployment tool to create the shard map manager
 #### Usage
 
 `Invoke-ShardDeploymentTool -Path .\collectiondeployment -DatabaseServer "database.server.com" -DatabasePrefix "sc_" -DatabaseUserName "admin" -DatabasePassword "password" -ShardCount 3`
+
+### `Update-XdbDatabaseServerName`
+
+Updates the database server information in an xDB database including the shard map manager and individual shard databases.
+
+#### Usage
+
+`Update-XdbDatabaseServerName -DatabaseServer "database.server.com" -DatabasePrefix "sc_" -DatabaseUserName "admin" -DatabasePassword "password" -DatabaseName "sc_Xdb.Collection.ShardMapManager" -NewDatabaseServer "localhost,1433"`
 
 ## Sitecore Host
 
