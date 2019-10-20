@@ -1,5 +1,6 @@
 $dbPrefix = "sc_"
-$dbServer = "host.docker.internal,11433"
+$dbServer = "localhost,11433"
+$shards = 2
 
 $username = "sa"
 $password = "pass@word1"
@@ -21,14 +22,16 @@ $variables.add("referenceDataPassword", $password)
 $variables.add("reportingPassword", $password)
 $variables.add("collectionPassword", $password)
 
-#Publish-SitecoreDatabases -Path ..\..\configs\9.2\Server\xp0-server-xdb-configuration.json -ResourcesPath ..\..\resources\9.2\Server\xConnect -DatabaseServer $dbServer -DatabasePrefix $dbPrefix -DatabaseUserName $username -DatabasePassword $password -Variables $variables
+Publish-SitecoreDatabases -Path ..\..\configs\9.2\Server\xp0-server-xdb-configuration.json -ResourcesPath ..\..\resources\9.2\Server\xConnect -DatabaseServer $dbServer -DatabasePrefix $dbPrefix -DatabaseUserName $username -DatabasePassword $password -Variables $variables
 
-#Invoke-ShardDeploymentTool -Path ..\..\resources\9.2\Server\xConnect\collectiondeployment -DatabaseServer $dbServer -DatabasePrefix $dbPrefix -DatabaseUserName $username -DatabasePassword $password -ShardCount 3
+Invoke-ShardDeploymentTool -Path ..\..\resources\9.2\Server\xConnect\collectiondeployment -DatabaseServer $dbServer -DatabasePrefix $dbPrefix -DatabaseUserName $username -DatabasePassword $password -ShardCount $shards
 
 Invoke-Sqlcmd -Query "CREATE LOGIN $($variables.collectionUserName) WITH PASSWORD = '$($variables.collectionPassword)'" -ServerInstance $dbServer -Username $username -Password $password -Database "master" -ErrorAction SilentlyContinue
+Invoke-Sqlcmd -Query "EXEC sp_addrolemember 'db_datareader', '$($variables.collectionUserName)'; EXEC sp_addrolemember 'db_datawriter', '$($variables.collectionUserName)';" -ServerInstance $dbServer -Username $username -Password $password -Database "master" -ErrorAction SilentlyContinue
 Invoke-Sqlcmd -Query "CREATE USER $($variables.collectionUserName) FROM LOGIN $($variables.collectionUserName) GRANT SELECT ON SCHEMA :: __ShardManagement TO [$($variables.collectionUserName)] GRANT EXECUTE ON SCHEMA :: __ShardManagement TO [$($variables.collectionUserName)]" -ServerInstance $dbServer -Username $username -Password $password -Database "$($dbPrefix)Xdb.Collection.ShardMapManager"
-Invoke-Sqlcmd -Query "CREATE USER $($variables.collectionUserName) FROM LOGIN $($variables.collectionUserName) EXEC [xdb_collection].[GrantLeastPrivilege] @UserName = '$($variables.collectionUserName)'" -ServerInstance $dbServer -Username $username -Password $password -Database "$($dbPrefix)Xdb.Collection.Shard0"
-Invoke-Sqlcmd -Query "CREATE USER $($variables.collectionUserName) FROM LOGIN $($variables.collectionUserName) EXEC [xdb_collection].[GrantLeastPrivilege] @UserName = '$($variables.collectionUserName)'" -ServerInstance $dbServer -Username $username -Password $password -Database "$($dbPrefix)Xdb.Collection.Shard1"
-Invoke-Sqlcmd -Query "CREATE USER $($variables.collectionUserName) FROM LOGIN $($variables.collectionUserName) EXEC [xdb_collection].[GrantLeastPrivilege] @UserName = '$($variables.collectionUserName)'" -ServerInstance $dbServer -Username $username -Password $password -Database "$($dbPrefix)Xdb.Collection.Shard2"
+for ($i = 0; $i -lt $shards; $i++) {
+	Invoke-Sqlcmd -Query "CREATE USER $($variables.collectionUserName) FROM LOGIN $($variables.collectionUserName) EXEC [xdb_collection].[GrantLeastPrivilege] @UserName = '$($variables.collectionUserName)'" -ServerInstance $dbServer -Username $username -Password $password -Database "$($dbPrefix)Xdb.Collection.Shard$i"
+}
+#Invoke-Sqlcmd -Query "CREATE USER $($variables.collectionUserName) FROM LOGIN $($variables.collectionUserName) EXEC [xdb_collection].[GrantLeastPrivilege] @UserName = '$($variables.collectionUserName)'" -ServerInstance $dbServer -Username $username -Password $password -Database "$($dbPrefix)Xdb.Collection.Shard1"
 
 #Invoke-ShardDeploymentTool -Path .\Sitecore.Xdb.Collection.Database.SqlShardingDeploymentTool.exe -DatabaseServer "prft-int-sql.database.windows.net,1433" -DatabasePrefix "prft-stg_" -DatabaseUserName "perficientadmin" -DatabasePassword "Prftadmin123!" -ShardCount 3

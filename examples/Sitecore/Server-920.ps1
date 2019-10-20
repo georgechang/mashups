@@ -1,5 +1,5 @@
 $dbPrefix = "sc_"
-$dbServer = "host.docker.internal,11433"
+$dbServer = "localhost,11433"
 
 $username = "sa"
 $password = "pass@word1"
