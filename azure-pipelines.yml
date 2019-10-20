@@ -10,7 +10,7 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
-- task: PSGalleryPackager@0
-  inputs:
-    apiKey: 'oy2a5cucf2d5lyump2gagkc76as5lg5uff6ivpluimktmu'
-    path: 'src/mashups.psd1'
+- powershell: Install-Module -Name PowerShellGet
+  displayName: Install PowerShellGet
+- powershell: Publish-Module -Name mashups -NuGetApiKey $(NuGetApiKey)
+  displayName: Publish Module
