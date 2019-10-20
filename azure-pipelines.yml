@@ -13,4 +13,4 @@ steps:
 - task: PSGalleryPackager@0
   inputs:
     apiKey: 'oy2a5cucf2d5lyump2gagkc76as5lg5uff6ivpluimktmu'
-    path: 'src'
+    path: 'src/mashups.psd1'
