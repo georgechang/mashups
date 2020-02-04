@@ -17,17 +17,18 @@ function Invoke-ShardDeploymentTool {
 	)
 
 	$arguments = @()
-	$arguments += "/operation ""create"""
+	$arguments += "/operation create"
 	$arguments += "/connectionstring ""Data Source=$DatabaseServer;User Id=$DatabaseUserName;Password=$DatabasePassword;Integrated Security=false"""
 	$arguments += "/dbedition ""Standard"""
 	$arguments += "/shardMapManagerDatabaseName ""$($DatabasePrefix)Xdb.Collection.ShardMapManager"""
 	$arguments += "/shardMapNames ""ContactIdShardMap,DeviceProfileIdShardMap,ContactIdentifiersIndexShardMap"""
-	$arguments += "/shardnumber ""$ShardCount"""
+	$arguments += "/shardnumber $ShardCount"
 	$arguments += "/shardnameprefix ""$($DatabasePrefix)Xdb.Collection.Shard"""
 	$arguments += "/shardnamesuffix """""
 	$arguments += "/dacpac ""$Dacpac"""
 
 	Push-Location $Path
+	Write-Host $arguments
 	Start-Process .\Sitecore.Xdb.Collection.Database.SqlShardingDeploymentTool.exe -ArgumentList $arguments -NoNewWindow -Wait
 	Pop-Location
 }

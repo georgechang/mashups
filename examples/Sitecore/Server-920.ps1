@@ -23,4 +23,4 @@ $variables.add("tasksPassword", $password)
 
 $variables.add("adminPassword", "b")
 
-Publish-SitecoreDatabases -Path ..\..\configs\9.2\Server\xp0-server-sitecore-configuration.json -ResourcesPath ..\..\resources\9.2\Server\Sitecore -DatabaseServer $dbServer -DatabasePrefix $dbPrefix -DatabaseUserName $username -DatabasePassword $password -Variables $variables
+Publish-SitecoreDatabases -Path ..\..\configs\9.3\Server\xp0-server-sitecore-configuration.json -ResourcesPath ..\..\resources\9.3\Server\Sitecore -DatabaseServer $dbServer -DatabasePrefix $dbPrefix -DatabaseUserName $username -DatabasePassword $password -Variables $variables

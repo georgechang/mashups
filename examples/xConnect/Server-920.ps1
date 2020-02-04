@@ -22,7 +22,7 @@ $variables.add("referenceDataPassword", $password)
 $variables.add("reportingPassword", $password)
 $variables.add("collectionPassword", $password)
 
-Publish-SitecoreDatabases -Path ..\..\configs\9.2\Server\xp0-server-xdb-configuration.json -ResourcesPath ..\..\resources\9.2\Server\xConnect -DatabaseServer $dbServer -DatabasePrefix $dbPrefix -DatabaseUserName $username -DatabasePassword $password -Variables $variables
+#Publish-SitecoreDatabases -Path ..\..\configs\9.3\Server\xp0-server-xdb-configuration.json -ResourcesPath ..\..\resources\9.3\Server\xConnect -DatabaseServer $dbServer -DatabasePrefix $dbPrefix -DatabaseUserName $username -DatabasePassword $password -Variables $variables
 
 Invoke-ShardDeploymentTool -Path ..\..\resources\9.2\Server\xConnect\collectiondeployment -DatabaseServer $dbServer -DatabasePrefix $dbPrefix -DatabaseUserName $username -DatabasePassword $password -ShardCount $shards
 
