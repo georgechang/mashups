@@ -20,6 +20,11 @@ function Publish-SitecoreDatabases {
 	{
 		$databaseName = "$($DatabasePrefix)$($database.name)";
 		Write-Host "Updating $($databaseName)..."
+		Write-Debug "Executing:"
+		Write-Debug "  - $($database.dacpac)"
+		$database.prescripts | % { Write-Debug "  - $($_.file)" }
+		$database.postscripts | % { Write-Debug "  - $($_.file)" }
+		Write-Debug "-----"
 		Write-Debug "Prescripts: $($database.prescripts.length)"
 		if ($database.prescripts.length -gt 0)
 		{

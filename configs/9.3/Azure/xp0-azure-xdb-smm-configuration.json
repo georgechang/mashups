@@ -31,7 +31,7 @@
 		},
 		{
 			"name": "Xdb.Collection.Shard0",
-			"dacpac": "Sitecore.Xdb.Colleciton.Shard0.dacpac",
+			"dacpac": "Sitecore.Xdb.Collection.Shard0.dacpac",
 			"prescripts": [
 				{
 					"file": "compatibility_azure_collection_shard0.sql"
@@ -49,6 +49,14 @@
 					}
 				},
 				{
+					"file": "shard0_changetracking.sql",
+					"variables": {
+						"sqlcommand": {
+							"Shard0DbName": "$shard0Name"
+						}
+					}
+				},
+				{
 					"file": "createuser_text_collection_shard0.sql",
 					"variables": {
 						"text": {
@@ -61,7 +69,7 @@
 		},
 		{
 			"name": "Xdb.Collection.Shard1",
-			"dacpac": "Sitecore.Xdb.Colleciton.Shard1.dacpac",
+			"dacpac": "Sitecore.Xdb.Collection.Shard1.dacpac",
 			"prescripts": [
 				{
 					"file": "compatibility_azure_collection_shard1.sql"
@@ -74,6 +82,14 @@
 						"sqlcommand": {
 							"ServerName": "$DatabaseServer",
 							"Shard0DbName": "$shard0Name",
+							"Shard1DbName": "$shard1Name"
+						}
+					}
+				},
+				{
+					"file": "shard1_changetracking.sql",
+					"variables": {
+						"sqlcommand": {
 							"Shard1DbName": "$shard1Name"
 						}
 					}
