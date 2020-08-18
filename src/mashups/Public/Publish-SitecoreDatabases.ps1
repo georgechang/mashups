@@ -1,11 +1,11 @@
 function Publish-SitecoreDatabases {
 	[CmdletBinding()]
 	param(
-		[Parameter(Mandatory=$true, ValueFromPipeline=$true)]
+		[Parameter(Mandatory = $true, ValueFromPipeline = $true)]
 		[string]$Path,
 		[string]$ResourcesPath = $pwd,
 		[string]$SqlPackageExePath = $pwd,
-		[Parameter(Mandatory=$true)]
+		[Parameter(Mandatory = $true)]
 		[string]$DatabaseServer,
 		[string]$DatabasePrefix,
 		[string]$DatabaseUserName,
@@ -16,8 +16,7 @@ function Publish-SitecoreDatabases {
 	Write-Debug "Fetching configuration from $Path..."
 	$configuration = Get-Content $Path -Raw | ConvertFrom-Json
 
-	foreach ($database in $configuration.databases)
-	{
+	foreach ($database in $configuration.databases) {
 		$databaseName = "$($DatabasePrefix)$($database.name)";
 		Write-Host "Updating $($databaseName)..."
 		Write-Debug "Executing:"
@@ -26,12 +25,10 @@ function Publish-SitecoreDatabases {
 		$database.postscripts | % { Write-Debug "  - $($_.file)" }
 		Write-Debug "-----"
 		Write-Debug "Prescripts: $($database.prescripts.length)"
-		if ($database.prescripts.length -gt 0)
-		{
+		if ($database.prescripts.length -gt 0) {
 			$database.prescripts | % { Invoke-DatabaseScript $_ -ResourcesPath $ResourcesPath -DatabaseServer $DatabaseServer -DatabaseName $databaseName -DatabaseUserName $DatabaseUserName -DatabasePassword $DatabasePassword -Variables $variables }
 		}
-		if ($null -ne $database.dacpac -and (Test-Path "$(Join-Path $ResourcesPath -ChildPath $database.dacpac)"))
-		{
+		if ($null -ne $database.dacpac -and (Test-Path "$(Join-Path $ResourcesPath -ChildPath $database.dacpac)")) {
 			Write-Debug "SourceFile: $($database.dacpac)"
 			$arguments = @()
 			$arguments += "/SourceFile:""$(Join-Path $ResourcesPath -ChildPath $database.dacpac)"""
@@ -41,13 +38,10 @@ function Publish-SitecoreDatabases {
 			$arguments += "/TargetUser:""$DatabaseUserName"""
 			$arguments += "/TargetPassword:""$DatabasePassword"""
 			$arguments += "/p:AllowIncompatiblePlatform=true"
-			Push-Location $SqlPackageExePath
-			Start-Process SqlPackage.exe -ArgumentList $arguments -NoNewWindow -Wait
-			Pop-Location
+			Start-Process sqlpackage -ArgumentList $arguments -NoNewWindow -Wait
 		}
 		Write-Debug "Postscripts: $($database.postscripts.length)"
-		if ($database.postscripts.length -gt 0)
-		{
+		if ($database.postscripts.length -gt 0) {
 			$database.postscripts | % { Invoke-DatabaseScript $_ -ResourcesPath $ResourcesPath -DatabaseServer $DatabaseServer -DatabaseName $databaseName -DatabaseUserName $DatabaseUserName -DatabasePassword $DatabasePassword -Variables $variables }
 		}
 	}
