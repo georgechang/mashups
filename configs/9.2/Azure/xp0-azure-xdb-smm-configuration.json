@@ -1,0 +1,93 @@
+{
+	"databases": [
+		{
+			"name": "Xdb.Collection.ShardMapManager",
+			"prescripts": [
+				{
+					"file": "compatibility_azure_smm.sql"
+				}
+			],
+			"postscripts": [
+				{
+					"file": "smm_azure.sql",
+					"variables": {
+						"sqlcommand": {
+							"ServerName": "$DatabaseServer",
+							"Shard0DbName": "$shard0Name",
+							"Shard1DbName": "$shard1Name"
+						}
+					}
+				},
+				{
+					"file": "createuser_text_collection_smm.sql",
+					"variables": {
+						"text": {
+							"PlaceHolderForUser": "$collectionUserName",
+							"PlaceHolderForPassword": "$collectionPassword"
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Xdb.Collection.Shard0",
+			"dacpac": "Sitecore.Xdb.Colleciton.Shard0.dacpac",
+			"prescripts": [
+				{
+					"file": "compatibility_azure_collection_shard0.sql"
+				}
+			],
+			"postscripts": [
+				{
+					"file": "shard0_azure.sql",
+					"variables": {
+						"sqlcommand": {
+							"ServerName": "$DatabaseServer",
+							"Shard0DbName": "$shard0Name",
+							"Shard1DbName": "$shard1Name"
+						}
+					}
+				},
+				{
+					"file": "createuser_text_collection_shard0.sql",
+					"variables": {
+						"text": {
+							"PlaceHolderForUser": "$collectionUserName",
+							"PlaceHolderForPassword": "$collectionPassword"
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Xdb.Collection.Shard1",
+			"dacpac": "Sitecore.Xdb.Colleciton.Shard1.dacpac",
+			"prescripts": [
+				{
+					"file": "compatibility_azure_collection_shard1.sql"
+				}
+			],
+			"postscripts": [
+				{
+					"file": "shard1_azure.sql",
+					"variables": {
+						"sqlcommand": {
+							"ServerName": "$DatabaseServer",
+							"Shard0DbName": "$shard0Name",
+							"Shard1DbName": "$shard1Name"
+						}
+					}
+				},
+				{
+					"file": "createuser_text_collection_shard1.sql",
+					"variables": {
+						"text": {
+							"PlaceHolderForUser": "$collectionUserName",
+							"PlaceHolderForPassword": "$collectionPassword"
+						}
+					}
+				}
+			]
+		}
+	]
+}

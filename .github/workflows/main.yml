@@ -1,0 +1,17 @@
+name: "PowerShell Gallery"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Publish PowerShell Module
+        env:
+          NUGET_API_KEY: ${{ secrets.NuGetApiKey }}
+        run: Publish-Module -Path ${{ github.workspace }}\src\mashups -NuGetApiKey "$env:NUGET_API_KEY"
+        shell: pwsh
